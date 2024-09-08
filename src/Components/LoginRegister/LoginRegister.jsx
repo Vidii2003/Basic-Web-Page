@@ -16,6 +16,11 @@ const LoginRegister = () =>{
         setAction('');
     }
 
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        setAction('');
+    }
+
     return(
         <div className={`wrapper ${action}`}>
             <div className="form-box login">
@@ -44,7 +49,7 @@ const LoginRegister = () =>{
             </div>
 
             <div className="form-box register">
-                <form action="">
+                <form action="" onSubmit={handleRegistration}>
                     <h1>Registration</h1>
                     <div className="input-box">
                         <input type="text" placeholder="Username" required/>
@@ -63,7 +68,7 @@ const LoginRegister = () =>{
                         <label><input type="checkbox"/>I agree to the terms & conditions</label>
                     </div>
 
-                    <button type="submit">Register</button>
+                    <button type="submit" >Register</button>
 
                     <div className="register-link">
                         <p>Already have an account? <a href="#" onClick={loginLink}>Login</a></p>
