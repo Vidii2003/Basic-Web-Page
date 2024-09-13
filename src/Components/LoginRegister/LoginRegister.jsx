@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './LoginRegister.css';
-import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginRegister = () => {
     const [action, setAction] = useState('');
@@ -12,6 +12,8 @@ const LoginRegister = () => {
     });
     const [errors, setErrors] = useState({});
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); // Password visibility state
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Confirm password visibility state
 
     const registerLink = () => {
         setAction('active');
@@ -104,6 +106,16 @@ const LoginRegister = () => {
         }
     };
 
+    // Toggle password visibility
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    // Toggle confirm password visibility
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
+
     return (
         <div className={`wrapper ${action}`}>
             <div className="form-box login">
@@ -114,8 +126,11 @@ const LoginRegister = () => {
                         <FaUser className="icon" />
                     </div>
                     <div className="input-box">
-                        <input type="password" placeholder="Password" required />
+                        <input type={showPassword ? "text" : "password"} placeholder="Password" required />
                         <FaLock className="icon" />
+                        <span className="password-toggle" onClick={togglePasswordVisibility}>
+                            {showPassword ? <FaEye className="icon1"/> : <FaEyeSlash className="icon1"/>}
+                        </span>
                     </div>
 
                     <div className="remember-forgot">
@@ -160,22 +175,24 @@ const LoginRegister = () => {
 
                     <div className="input-box">
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Password"
                             name="password"
                             value={input.password}
                             onChange={handleChange}
                             required
-                            className="password-input"
                         />
                         <FaLock className="icon" />
+                        <span className="password-toggle" onClick={togglePasswordVisibility}>
+                            {showPassword ? <FaEye className="icon1"/> : <FaEyeSlash className="icon1"/>}
+                        </span>
                         <div className="password-hint">Password must be 6-10 characters long, contain at least one uppercase letter, one lowercase letter, and one special character.</div>
                     </div>
                     {errors.password && <div className="error">{errors.password}</div>}
 
                     <div className="input-box">
                         <input
-                            type="password"
+                            type={showConfirmPassword ? "text" : "password"}
                             placeholder="Confirm Password"
                             name="confirmPassword"
                             value={input.confirmPassword}
@@ -183,6 +200,9 @@ const LoginRegister = () => {
                             required
                         />
                         <FaLock className="icon" />
+                        <span className="password-toggle" onClick={toggleConfirmPasswordVisibility}>
+                            {showPassword ? <FaEye className="icon1"/> : <FaEyeSlash className="icon1"/>}
+                        </span>
                     </div>
                     {errors.confirmPassword && <div className="error">{errors.confirmPassword}</div>}
 
